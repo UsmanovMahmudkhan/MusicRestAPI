@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -34,12 +35,22 @@ private final MusicService service;
     }
 
     //GET - /api/songs
-
     @GetMapping("/songs")
     public ResponseEntity<List<MusicModel>>getAll() throws IOException {
         return ResponseEntity
                 .status(HttpStatus.ACCEPTED)
                 .body(service.getAllFiles());
+    }
+
+    //GET- /api/songs/{id}
+    @GetMapping("/songs/{id}")
+    public ResponseEntity<Resource>getbyID(@PathVariable int id) throws MalformedURLException {
+        return ResponseEntity
+                .status(HttpStatus.ACCEPTED)
+                .header(HttpHeaders.CONTENT_DISPOSITION,"inline; filename:"+service.getByID(id).getFilename())
+                .contentType(MediaType.valueOf("audio/mpeg"))
+                .body(service.getByID(id));
+
     }
 
 

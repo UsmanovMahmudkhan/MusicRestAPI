@@ -14,6 +14,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MusicService {
@@ -39,7 +40,11 @@ public class MusicService {
 
     public List<MusicModel> getAllFiles() throws IOException {
        return (List<MusicModel>) musicdb.findAll();
+    }
 
+    public Resource getByID(int id) throws MalformedURLException {
+        Optional<MusicModel> response= musicdb.findById(id);
+        return new FileUrlResource(response.get().getPath());
     }
 
 }
