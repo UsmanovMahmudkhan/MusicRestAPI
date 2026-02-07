@@ -2,9 +2,13 @@ package com.MusicRestApi.RestApiForMusic.Service;
 
 import com.MusicRestApi.RestApiForMusic.Model.MusicModel;
 import com.MusicRestApi.RestApiForMusic.Repository.musicdb;
+import org.springframework.core.io.FileUrlResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -33,8 +37,9 @@ public class MusicService {
         return true;
     }
 
-    public List<MusicModel> getAllLocation(){
-        return (List<MusicModel>) musicdb.findAll();
+    public List<MusicModel> getAllFiles() throws IOException {
+       return (List<MusicModel>) musicdb.findAll();
+
     }
 
 }
