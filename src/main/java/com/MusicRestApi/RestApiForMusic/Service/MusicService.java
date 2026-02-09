@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,5 +47,28 @@ public class MusicService {
         Optional<MusicModel> response= musicdb.findById(id);
         return new FileUrlResource(response.get().getPath());
     }
+
+    public byte[] getStream(int id, String bytes) throws IOException {
+       var music= musicdb.findById(id);
+       Path path=Paths.get(music.get().getPath());
+       byte[] musicArray=Files.readAllBytes(path);
+       long start=0;
+       long finish=musicArray.length;
+
+       if(bytes!=null){
+           String []part=bytes.replace("bytes=","").split("-");
+           start = Long.parseLong(String.valueOf(part[0]));
+           if(part.length>1 && !part[1].isEmpty()){
+               finish=Long.parseLong(String.valueOf(part[1]));
+           }
+       }
+
+       long totalLength= finish-start+1;
+       byte [] content= Arrays.copyOfRange(musicArray, (int) start, (int) finish+1);
+
+       return content;
+    }
+
+
 
 }

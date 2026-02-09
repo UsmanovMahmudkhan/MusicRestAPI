@@ -4,9 +4,11 @@ import com.MusicRestApi.RestApiForMusic.Model.MusicModel;
 import com.MusicRestApi.RestApiForMusic.Service.MusicService;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpRange;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.support.ResourceRegion;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,5 +55,16 @@ private final MusicService service;
 
     }
 
+    //GET- /api/songs/{id}/stream
+    @GetMapping("/songs/{id}/stream")
+    public ResponseEntity<ResourceRegion>responseEntity(@PathVariable int id, @RequestHeader HttpHeaders headers) throws IOException {
+        Resource resource = service.getByID(id);
+        ResourceRegion region = buildRegion(resource, headers);
+        return ResponseEntity
+                .status(HttpStatus.PARTIAL_CONTENT)
+                .header(HttpHeaders.ACCEPT_RANGES, "bytes")
+                .contentType(MediaType.valueOf("audio/mpeg"))
+                .body(region);
+    }
 
 }
