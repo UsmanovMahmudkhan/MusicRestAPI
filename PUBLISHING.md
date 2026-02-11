@@ -92,7 +92,7 @@ The `distributionManagement` section names the repository `github`. This ID **mu
 ```xml
 <distributionManagement>
     <repository>
-        <id>github</id> <!-- This matches the server id in settings.xml -->
+        <id>github</id> 
         <name>GitHub Packages</name>
         <url>https://maven.pkg.github.com/UsmanovMahmudkhan/MusicRestAPI</url>
     </repository>
