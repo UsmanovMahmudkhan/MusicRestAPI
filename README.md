@@ -76,3 +76,7 @@ The following resources were used in the development of this project and are rec
 - [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
 - [Uploading Files](https://spring.io/guides/gs/uploading-files/)
 - [HTTP Range Requests (MDN)](https://developer.mozilla.org/en-US/docs/Web/HTTP/Range_requests)
+
+## Publishing
+
+For instructions on how to publish this project to GitHub Packages, see [PUBLISHING.md](PUBLISHING.md).
