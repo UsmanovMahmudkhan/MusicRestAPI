@@ -35,11 +35,12 @@ class SongByIDTest {
                 .andExpect(status().isAccepted());
     }
 
-
     @Test
     void shouldReturn404WhenSongNotFound() throws Exception {
 
-        when(musicService.getByID(99)).thenThrow(new RuntimeException());
+        when(musicService.getByID(99))
+                .thenThrow(new org.springframework.web.server.ResponseStatusException(
+                        org.springframework.http.HttpStatus.NOT_FOUND));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/api/songs/99"))
                 .andExpect(status().isNotFound());
