@@ -50,6 +50,17 @@ The following sections detail the available endpoints. Postman screenshots are i
 
 ![Delete Endpoint](POSTMAN/delete.png)
 
+## Testing
+
+This project includes tests to verify core functionality:
+
+- **Upload**: Tests the `POST /api/songs/upload` endpoint.
+- **Download**: Tests the `GET /api/songs/{id}/download` endpoint.
+- **Get All Songs**: Tests retrieval of the song list via `GET /api/songs`.
+- **Get Song By ID**: Tests `GET /api/songs/{id}` for both existing and non-existing IDs (validating 404 response).
+
+You can run these tests using your IDE or Maven.
+
 ## Technologies Used
 
 - **Java**: Core programming language.
