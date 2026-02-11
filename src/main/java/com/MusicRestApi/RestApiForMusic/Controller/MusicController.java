@@ -85,7 +85,7 @@ public class MusicController {
     @GetMapping("/songs/{id}/download")
     public ResponseEntity<Resource> download(@PathVariable int id) throws IOException {
 
-       Path path=(service.download(id));
+        Path path=(service.download(id));
         Resource resource = new UrlResource(path.toUri());
 
         if (!resource.exists()) {
