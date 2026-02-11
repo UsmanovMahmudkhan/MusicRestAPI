@@ -8,7 +8,7 @@
 		<version>4.0.2</version>
 		<relativePath/>
 	</parent>
-	<groupId>com.MusicRestApi</groupId>
+	<groupId>com.github.usmanovmahmudkhan</groupId>
 	<artifactId>RestApiForMusic</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
 	<name>RestApiForMusic</name>
