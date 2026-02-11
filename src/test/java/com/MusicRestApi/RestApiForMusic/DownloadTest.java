@@ -26,12 +26,21 @@ class DownloadTest {
 
     @Test
     void testDownloadSuccess() throws Exception {
-        Path path = Path.of("/Users/mahmudkhonusmonov/Desktop/RestApiForMusic/src/How-You-Can-Become-a-Professor-at-Sejong-University-2025-2.wav");
-        when(service.download(1)).thenReturn(path);
+        // Create a temporary file for testing
+        Path tempFile = java.nio.file.Files.createTempFile("test-audio", ".wav");
+        try {
+            // Write some dummy content
+            java.nio.file.Files.write(tempFile, "test audio content".getBytes());
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/songs/1/download"))
-                .andExpect(status().isOk())
-                .andExpect(header().exists(HttpHeaders.CONTENT_DISPOSITION))
-                .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM));
+            when(service.download(1)).thenReturn(tempFile);
+
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/songs/1/download"))
+                    .andExpect(status().isOk())
+                    .andExpect(header().exists(HttpHeaders.CONTENT_DISPOSITION))
+                    .andExpect(content().contentType(MediaType.APPLICATION_OCTET_STREAM));
+        } finally {
+            // Clean up
+            java.nio.file.Files.deleteIfExists(tempFile);
+        }
     }
 }
